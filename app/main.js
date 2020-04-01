@@ -14,6 +14,10 @@ client.on('message', (msg) => {
 	if(msg.author.bot) return;
 	if(!msg.guild) return;
 	
+	config = {
+		prefix: '!'
+	};
+	
 	if(msg.content.startsWith(config.prefix)) {
 		let command = msg.content.substring(config.prefix.length, msg.content.indexOf(' ') !== -1 ? msg.content.indexOf(' ') : msg.content.length);
 		let args = msg.content.indexOf(' ') !== -1 ? msg.content.substring(config.prefix.length + command.length + 1).split(' ') : [];
