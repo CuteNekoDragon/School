@@ -8,10 +8,6 @@ let logger, config, db, workingDir;
 client.on('ready', () => {
 	logger(`Logged in as ${client.user.tag}!`);
 	client.user.setPresence({ activity: { name: 'jouw huiswerk', type: 'WATCHING' }, status: 'online' });
-	
-	logger(config);
-	logger(db);
-	logger(workingDir);
 });
 
 client.on('message', (msg) => {
