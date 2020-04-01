@@ -8,6 +8,10 @@ let logger, config, db, workingDir;
 client.on('ready', () => {
 	logger(`Logged in as ${client.user.tag}!`);
 	client.user.setPresence({ activity: { name: 'jouw huiswerk', type: 'WATCHING' }, status: 'online' });
+	
+	logger(config);
+	logger(db);
+	logger(workingDir);
 });
 
 client.on('message', (msg) => {
@@ -19,6 +23,7 @@ client.on('message', (msg) => {
 		let args = msg.content.indexOf(' ') !== -1 ? msg.content.substring(config.prefix.length + command.length + 1).split(' ') : [];
 
 		logger(msg.author.tag + ': ' + msg.content);
+		msg.channel.send(msg.author.tag + ': ' + msg.content);
 	}
 });
 
