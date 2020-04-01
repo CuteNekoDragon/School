@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const client = new Discord.Client();
 
-let logger;
+let logger, config, db, workingDir;
 
 client.on('ready', () => {
 	logger(`Logged in as ${client.user.tag}!`);
@@ -13,21 +13,21 @@ client.on('ready', () => {
 client.on('message', (msg) => {
 	if(msg.author.bot) return;
 	if(!msg.guild) return;
-	
-	config = {
-		prefix: '!'
-	};
-	
+
 	if(msg.content.startsWith(config.prefix)) {
 		let command = msg.content.substring(config.prefix.length, msg.content.indexOf(' ') !== -1 ? msg.content.indexOf(' ') : msg.content.length);
 		let args = msg.content.indexOf(' ') !== -1 ? msg.content.substring(config.prefix.length + command.length + 1).split(' ') : [];
-		
+
 		logger(msg.author.tag + ': ' + msg.content);
 	}
 });
 
-function start(token, log) {
-	logger = log;
+function start(token, args) {
+	logger = args.logger;
+	config = args.config;
+	db = args.db;
+	workingDir = args.dir;
+	
 	client.login(token);
 }
 function stop() {
