@@ -3,6 +3,15 @@ const fs = require('fs');
 
 const client = new Discord.Client();
 
+/**
+	logger(str): console.log(`[DISCORD]: ${str}`);
+	config: JSON.parse(fs.readFileSync(`${$workingDir}/../config.json`));
+	db: {
+		read(part, reason): (example: db.read('admins[0].name', `${user} had de naam nodig`))
+		write(part, value, reason): (example: db.write('admins[1].email', 'joost@gmail.com', 'Hij heeft een andere email'))
+	}
+	workingDir: './app/'
+**/
 let logger, config, db, workingDir;
 
 client.on('ready', () => {
