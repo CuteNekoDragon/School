@@ -17,6 +17,9 @@ let logger, config, db, workingDir;
 client.on('ready', () => {
 	logger(`Logged in as ${client.user.tag}!`);
 	client.user.setPresence({ activity: { name: 'jouw huiswerk', type: 'WATCHING' }, status: 'online' });
+	client.channels.fetch(config['update-channel']).then(channel => {
+		channel.send('Bot online/updated!');
+	});
 });
 
 client.on('message', (msg) => {
@@ -41,6 +44,10 @@ function start(token, args) {
 	client.login(token);
 }
 function stop() {
+	client.channels.fetch(config['update-channel']).then(channel => {
+		channel.send('Bot is updating!');
+	});
+	
 	client.user.setPresence({ activity: { name: 'met nieuwe updates', type: 'PLAYING' }, status: 'dnd' });
 }
 function terminate() {
