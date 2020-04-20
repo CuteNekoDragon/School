@@ -24,16 +24,32 @@ client.on('ready', () => {
 
 client.on('message', (msg) => {
 	if(msg.author.bot) return;
-	if(!msg.guild) return;
+	if(!msg.guild) return;	
 
 	if(msg.content.startsWith(config.prefix)) {
 		let command = msg.content.substring(config.prefix.length, msg.content.indexOf(' ') !== -1 ? msg.content.indexOf(' ') : msg.content.length);
 		let args = msg.content.indexOf(' ') !== -1 ? msg.content.substring(config.prefix.length + command.length + 1).split(' ') : [];
 
 		logger(msg.author.tag + ': ' + msg.content);
-		msg.channel.send(msg.author.tag + ': ' + msg.content);
+		for(commandObj of commands) {
+			if(commandObj.name === command) {
+				commandObj.command(msg, args);
+			}
+		}
 	}
 });
+
+let commands = [
+	{
+		'name': 'createchannel',
+		'description': 'Test command',
+		'command': (msg, args) => {
+			msg.guild.createChannel(args.join(' ')).then(channel => {
+				channel.setTopic(`test channel`);
+			});
+		}
+	},
+];
 
 function start(token, args) {
 	logger = args.logger;
