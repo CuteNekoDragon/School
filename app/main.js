@@ -32,6 +32,14 @@ client.on('message', (msg) => {
 	}
 });
 
+
+function createchannel(channel) {
+	
+	const fetchedchannel = client.channels.find("name",channel)
+	fetchedchannel.delete();
+	
+}
+
 function start(token, args) {
 	logger = args.logger;
 	config = args.config;
