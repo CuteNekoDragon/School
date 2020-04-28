@@ -51,6 +51,13 @@ let commands = [
 	},
 ];
 
+function deletechannel(channel) {
+	
+	const fetchedchannel = client.channels.resolve(,channel)
+	fetchedchannel.delete();
+	
+}
+
 function start(token, args) {
 	logger = args.logger;
 	config = args.config;
